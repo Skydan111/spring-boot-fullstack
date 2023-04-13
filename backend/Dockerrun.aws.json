@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "skydan-api",
-      "image": "skydan111/skydan-api:12.04.2023.12.40.21",
+      "image": "skydan111/skydan-api:13.04.2023.11.28.15",
       "essential": true,
       "memory": 512,
       "portMappings": [
