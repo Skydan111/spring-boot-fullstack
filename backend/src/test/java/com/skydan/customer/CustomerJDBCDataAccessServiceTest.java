@@ -29,7 +29,8 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 "example@gmail.com" +"-" + UUID.randomUUID(),
-                20
+                20,
+                "MALE"
         );
 
         underTest.insertCustomer(customer);
@@ -48,7 +49,8 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 email,
-                20
+                20,
+                "MALE"
         );
 
         underTest.insertCustomer(customer);
@@ -92,7 +94,8 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 name,
                 email,
-                20
+                20,
+                "MALE"
         );
 
         underTest.insertCustomer(customer);
@@ -123,7 +126,8 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 email,
-                20
+                20,
+                "MALE"
         );
 
         underTest.insertCustomer(customer);
@@ -150,7 +154,8 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 email,
-                20
+                20,
+                "MALE"
         );
 
         underTest.insertCustomer(customer);
@@ -188,7 +193,8 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 email,
-                20
+                20,
+                "MALE"
         );
 
         underTest.insertCustomer(customer);
@@ -228,7 +234,8 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 email,
-                20
+                20,
+                "MALE"
         );
 
         underTest.insertCustomer(customer);
@@ -267,7 +274,8 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 email,
-                20
+                20,
+                "MALE"
         );
 
         underTest.insertCustomer(customer);
@@ -306,7 +314,8 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 email,
-                20
+                20,
+                "MALE"
         );
 
         underTest.insertCustomer(customer);
@@ -324,6 +333,7 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         update.setName("foo");
         update.setEmail("example@gmail.com" + "-" + UUID.randomUUID());
         update.setAge(22);
+        update.setGender("FEMALE");
 
         underTest.updateCustomer(update);
 
@@ -340,7 +350,8 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 email,
-                20
+                20,
+                "MALE"
         );
 
         underTest.insertCustomer(customer);

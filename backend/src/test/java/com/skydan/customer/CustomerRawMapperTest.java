@@ -21,13 +21,14 @@ public class CustomerRawMapperTest {
         when(resultSet.getString("name")).thenReturn("Maria");
         when(resultSet.getString("email")).thenReturn("maria@gmail.com");
         when(resultSet.getInt("age")).thenReturn(19);
+        when(resultSet.getString("gender")).thenReturn("FEMALE");
 
         //When
         Customer actual = customerRawMapper.mapRow(resultSet, 1);
 
         //Then
         Customer expected = new Customer(
-                1, "Maria", "maria@gmail.com", 19
+                1, "Maria", "maria@gmail.com", 19, "FEMALE"
         );
         assertThat(actual).isEqualTo(expected);
     }

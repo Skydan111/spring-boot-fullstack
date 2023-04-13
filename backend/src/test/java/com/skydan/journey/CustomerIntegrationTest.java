@@ -33,9 +33,10 @@ public class CustomerIntegrationTest {
         String fullName = "Foo";
         String email = "example" + UUID.randomUUID() + "@skydan.com";
         int age = RANDOM.nextInt(18, 55);
+        String gender = "MALE";
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                fullName, email, age
+                fullName, email, age, gender
         );
 
         //Send a post request
@@ -64,7 +65,7 @@ public class CustomerIntegrationTest {
 
         //Make sure, that customers is present
         Customer expected = new Customer(
-                fullName, email, age
+                fullName, email, age, gender
         );
 
         assertThat(allCustomers)
@@ -99,9 +100,10 @@ public class CustomerIntegrationTest {
         String fullName = "Foo";
         String email = "example" + UUID.randomUUID() + "@skydan.com";
         int age = RANDOM.nextInt(18, 55);
+        String gender = "MALE";
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                fullName, email, age
+                fullName, email, age, gender
         );
 
         //Send a post request
@@ -160,9 +162,10 @@ public class CustomerIntegrationTest {
         String fullName = "Foo";
         String email = "example" + UUID.randomUUID() + "@skydan.com";
         int age = RANDOM.nextInt(18, 55);
+        String gender = "MALE";
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                fullName, email, age
+                fullName, email, age, gender
         );
 
         //Send a post request
@@ -199,7 +202,7 @@ public class CustomerIntegrationTest {
 
         String newName = "Maria";
         CustomerUpdateRequest updateRequest = new CustomerUpdateRequest(
-                newName, null, null
+                newName, null, null, null
         );
 
         webTestClient
@@ -225,7 +228,7 @@ public class CustomerIntegrationTest {
                 .returnResult()
                 .getResponseBody();
 
-        Customer expected = new Customer(id, newName, email, age);
+        Customer expected = new Customer(id, newName, email, age, gender);
 
         assertThat(updatedCustomer).isEqualTo(expected);
     }

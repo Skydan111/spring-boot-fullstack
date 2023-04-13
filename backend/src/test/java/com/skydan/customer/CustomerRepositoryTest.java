@@ -29,7 +29,8 @@ public class CustomerRepositoryTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo Bar",
                 email,
-                20
+                20,
+                "MALE"
         );
 
         underTest.save(customer);
@@ -60,7 +61,8 @@ public class CustomerRepositoryTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 email,
-                20
+                20,
+                "MALE"
         );
 
         underTest.save(customer);
