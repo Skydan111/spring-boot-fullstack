@@ -9,7 +9,6 @@ import {
     VStack,
     Icon,
     useColorModeValue,
-    Link,
     Drawer,
     DrawerContent,
     Text,
