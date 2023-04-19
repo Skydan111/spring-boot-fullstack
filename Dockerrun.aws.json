@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "skydan-react",
-      "image": "skydan111/skydan-react:latest",
+      "image": "skydan111/skydan-react:19.04.2023.08.26.53",
       "essential": true,
       "memory": 256,
       "portMappings": [
