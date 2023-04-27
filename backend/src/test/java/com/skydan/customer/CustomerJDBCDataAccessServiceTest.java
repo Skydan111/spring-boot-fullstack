@@ -29,6 +29,7 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 "example@gmail.com" +"-" + UUID.randomUUID(),
+                "password",
                 20,
                 "MALE"
         );
@@ -49,6 +50,7 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 email,
+                "password",
                 20,
                 "MALE"
         );
@@ -70,6 +72,7 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
             assertThat(c.getId()).isEqualTo(id);
             assertThat(c.getName()).isEqualTo(customer.getName());
             assertThat(c.getEmail()).isEqualTo(customer.getEmail());
+            assertThat(c.getPassword()).isEqualTo(customer.getPassword());
             assertThat(c.getAge()).isEqualTo(customer.getAge());
         });
     }
@@ -94,6 +97,7 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 name,
                 email,
+                "password",
                 20,
                 "MALE"
         );
@@ -126,6 +130,7 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 email,
+                "password",
                 20,
                 "MALE"
         );
@@ -154,6 +159,7 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 email,
+                "password",
                 20,
                 "MALE"
         );
@@ -193,6 +199,7 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 email,
+                "password",
                 20,
                 "MALE"
         );
@@ -234,7 +241,7 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 email,
-                20,
+                "password", 20,
                 "MALE"
         );
 
@@ -274,7 +281,7 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 email,
-                20,
+                "password", 20,
                 "MALE"
         );
 
@@ -314,6 +321,7 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 email,
+                "password",
                 20,
                 "MALE"
         );
@@ -332,6 +340,7 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         update.setId(id);
         update.setName("foo");
         update.setEmail("example@gmail.com" + "-" + UUID.randomUUID());
+        update.setPassword("password123");
         update.setAge(22);
         update.setGender("FEMALE");
 
@@ -350,6 +359,7 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "Foo",
                 email,
+                "password",
                 20,
                 "MALE"
         );
@@ -376,6 +386,7 @@ public class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
             assertThat(c.getId()).isEqualTo(id);
             assertThat(c.getName()).isEqualTo(customer.getName());
             assertThat(c.getEmail()).isEqualTo(customer.getEmail());
+            assertThat(c.getPassword()).isEqualTo(customer.getPassword());
             assertThat(c.getAge()).isEqualTo(customer.getAge());
         });
     }

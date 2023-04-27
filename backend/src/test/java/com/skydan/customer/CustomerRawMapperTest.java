@@ -28,7 +28,7 @@ public class CustomerRawMapperTest {
 
         //Then
         Customer expected = new Customer(
-                1, "Maria", "maria@gmail.com", 19, "FEMALE"
+                1, "Maria", "maria@gmail.com", "password", 19, "FEMALE"
         );
         assertThat(actual).isEqualTo(expected);
     }

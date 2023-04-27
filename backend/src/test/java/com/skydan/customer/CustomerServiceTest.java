@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -22,10 +23,12 @@ public class CustomerServiceTest {
 
     @Mock private CustomerDao customerDao;
     private CustomerService underTest;
+    @Mock private PasswordEncoder passwordEncoder;
+    private final CustomerDTOMapper customerDTOMapper = new CustomerDTOMapper();
 
     @BeforeEach
     void setUp() {
-        underTest = new CustomerService(customerDao);
+        underTest = new CustomerService(customerDao, customerDTOMapper, passwordEncoder);
     }
 
     @Test
@@ -41,14 +44,16 @@ public class CustomerServiceTest {
     void canGetCustomer() {
         //Given
         int id = 1;
-        Customer customer = new Customer(id, "Maria", "maria@gmail.com", 18, "FEMALE");
+        Customer customer = new Customer(id, "Maria", "maria@gmail.com", "password", 18, "FEMALE");
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
+        CustomerDTO expected = customerDTOMapper.apply(customer);
+
         //When
-        Customer actual = underTest.getCustomer(1);
+        CustomerDTO actual = underTest.getCustomer(1);
 
         //Then
-        assertThat(actual).isEqualTo(customer);
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
@@ -74,8 +79,12 @@ public class CustomerServiceTest {
         when(customerDao.existsCustomerWithEmail(email)).thenReturn(false);
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                "Maria", email, 18, "FEMALE"
+                "Maria", email, "password", 18, "FEMALE"
         );
+
+        String passwordHash = "54t4;v883dn;65yh";
+
+        when(passwordEncoder.encode(request.password())).thenReturn(passwordHash);
 
         //When
         underTest.addCustomer(request);
@@ -90,6 +99,7 @@ public class CustomerServiceTest {
         assertThat(capturedCustomer.getId()).isNull();
         assertThat(capturedCustomer.getName()).isEqualTo(request.name());
         assertThat(capturedCustomer.getEmail()).isEqualTo(request.email());
+        assertThat(capturedCustomer.getPassword()).isEqualTo(passwordHash);
         assertThat(capturedCustomer.getAge()).isEqualTo(request.age());
         assertThat(capturedCustomer.getGender()).isEqualTo(request.gender());
     }
@@ -100,7 +110,7 @@ public class CustomerServiceTest {
         String email = "maria@gmail.com";
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                "Maria", email, 18, "FEMALE"
+                "Maria", email, "password", 18, "FEMALE"
         );
         when(customerDao.existsCustomerWithEmail(email)).thenReturn(true);
 
@@ -148,7 +158,7 @@ public class CustomerServiceTest {
     void canUpdateAllCustomerProperties() {
         //Given
         int id = 1;
-        Customer customer = new Customer(id, "Maria", "maria@gmail.com", 18, "FEMALE");
+        Customer customer = new Customer(id, "Maria", "maria@gmail.com", "password", 18, "FEMALE");
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         String newEmail = "marianna@gmail.com";
@@ -176,7 +186,7 @@ public class CustomerServiceTest {
     void canUpdateOnlyCustomerName() {
         //Given
         int id = 1;
-        Customer customer = new Customer(id, "Maria", "maria@gmail.com", 18, "FEMALE");
+        Customer customer = new Customer(id, "Maria", "maria@gmail.com", "password", 18, "FEMALE");
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         CustomerUpdateRequest updateRequest = new CustomerUpdateRequest(
@@ -201,7 +211,7 @@ public class CustomerServiceTest {
     void canUpdateOnlyCustomerEmail() {
         //Given
         int id = 1;
-        Customer customer = new Customer(id, "Maria", "maria@gmail.com", 18, "FEMALE");
+        Customer customer = new Customer(id, "Maria", "maria@gmail.com", "password", 18, "FEMALE");
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         String newEmail = "marianna@gmail.com";
@@ -229,7 +239,7 @@ public class CustomerServiceTest {
     void canUpdateOnlyCustomerAge() {
         //Given
         int id = 1;
-        Customer customer = new Customer(id, "Maria", "maria@gmail.com", 18, "FEMALE");
+        Customer customer = new Customer(id, "Maria", "maria@gmail.com", "password", 18, "FEMALE");
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         CustomerUpdateRequest updateRequest = new CustomerUpdateRequest(
@@ -254,7 +264,7 @@ public class CustomerServiceTest {
     void canUpdateOnlyCustomerGender() {
         //Given
         int id = 1;
-        Customer customer = new Customer(id, "Maria", "maria@gmail.com", 18, "FEMALE");
+        Customer customer = new Customer(id, "Maria", "maria@gmail.com", "password", 18, "FEMALE");
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         CustomerUpdateRequest updateRequest = new CustomerUpdateRequest(
@@ -279,7 +289,7 @@ public class CustomerServiceTest {
     void willThrowWhenTryingToUpdateCustomerEmailWhenAlreadyTaken() {
         //Given
         int id = 1;
-        Customer customer = new Customer(id, "Maria", "maria@gmail.com", 18, "FEMALE");
+        Customer customer = new Customer(id, "Maria", "maria@gmail.com", "password", 18, "FEMALE");
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         String newEmail = "marianna@gmail.com";
@@ -301,7 +311,7 @@ public class CustomerServiceTest {
     void willThrowWhenCustomerUpdateHasNoChanges() {
         //Given
         int id = 1;
-        Customer customer = new Customer(id, "Maria", "maria@gmail.com", 18, "FEMALE");
+        Customer customer = new Customer(id, "Maria", "maria@gmail.com", "password", 18, "FEMALE");
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         CustomerUpdateRequest updateRequest = new CustomerUpdateRequest(
