@@ -15,7 +15,7 @@
     },
     {
       "name": "skydan-api",
-      "image": "skydan111/skydan-api:27.04.2023.08.16.42",
+      "image": "skydan111/skydan-api:01.05.2023.09.02.28",
       "essential": true,
       "memory": 512,
       "portMappings": [
