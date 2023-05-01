@@ -39,7 +39,7 @@ const MySelect = ({label, ...props}) => {
     );
 };
 
-const CreateCustomerForm = ({ fetchCustomers }) => {
+const CreateCustomerForm = ({ onSuccess }) => {
     return (
         <>
             <Formik
@@ -81,7 +81,7 @@ const CreateCustomerForm = ({ fetchCustomers }) => {
                                 "Customer saved",
                                 `${customer.name} was successfully saved`
                             )
-                            fetchCustomers();
+                            onSuccess(res.headers["authorization"]);
                         }).catch(err => {
                         console.log(err);
                         errorNotification(
