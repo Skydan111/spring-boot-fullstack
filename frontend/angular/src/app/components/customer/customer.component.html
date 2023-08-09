@@ -1,0 +1,47 @@
+<p-sidebar [(visible)]="display" position="right" styleClass="p-sidebar-md">
+  <app-manage-customer
+    [customer]="customer"
+    [operation]="operation"
+    (submit)="save($event)"
+    (cancel)="cancel()"
+  ></app-manage-customer>
+</p-sidebar>
+
+<div class="flex align-items-stretch" style="height: 99vh;">
+  <div class="flex flex-column align-items-stretch border-right-1 col-2 border-gray-200">
+    <app-menu-bar></app-menu-bar>
+  </div>
+  <div class="flex flex-column flex-grow-1">
+    <div>
+      <app-header-bar></app-header-bar>
+    </div>
+    <div class="main-container p-3">
+      <button
+        pButton
+        icon="pi pi-plus"
+        label="Create customer"
+        class="p-button-success"
+        (click)="createCustomer()"
+      ></button>
+      <div class="flex justify-content-center align-items-center flex-wrap gap-5 mt-4">
+        <app-customer-card
+          *ngFor="let customer of customers; let index = index"
+          [customer]="customer"
+          [customerIndex]="index"
+          (delete)="deleteCustomer($event)"
+          (update)="updateCustomer($event)"
+        ></app-customer-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+  acceptLabel="Delete"
+  acceptButtonStyleClass="p-button-danger"
+  acceptIcon="pi pi-trash"
+  rejectLabel="Cancel"
+></p-confirmDialog>
+<p-toast position="bottom-center"></p-toast>
